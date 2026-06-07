@@ -85,3 +85,15 @@ router.delete('/:id', (req, res) => {
 })
 
 module.exports = router;
+
+const express = require("express");
+const bookController = require("../controller/book.controller")
+const router = express.Router();
+
+router.get("/", bookController.getAllBooks);       //ambil semua buku
+router.get("/:id", bookController.getBookById);   //ambil satu
+router.post("/", bookController.createBook);      //
+router.put("/:id", bookController.updateBook);    
+router.delete("/:id", bookController.deleteBook);
+
+module.exports = router;
