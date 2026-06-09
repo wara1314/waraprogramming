@@ -14,6 +14,10 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/books", bookRoutes);
 
+app.get("/", (req, res) => {
+    res.status(200).send("Server Backend Manajemen Buku Sukses Berjalan!");
+});
+
 setupSwagger(app);
 
 app.listen(PORT, () => {
