@@ -11,14 +11,14 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
+setupSwagger(app);
+
 app.use("/api/auth", authRoutes);
 app.use("/api/books", bookRoutes);
 
 app.get("/", (req, res) => {
     res.status(200).send("Server Backend Manajemen Buku Sukses Berjalan!");
 });
-
-setupSwagger(app);
 
 app.listen(PORT, () => {
     app.listen(PORT, () => {
