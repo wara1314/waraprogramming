@@ -12,7 +12,7 @@ let nextId = 3;
 
 /**
  * @swagger
- * /api/books:
+ * /:
  *   get:
  *     tags: [Books]
  *     summary: Mendapatkan semua daftar buku
@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
 
 /**
  * @swagger
- * /api/books/{id}:
+ * /{id}:
  *   get:
  *     tags: [Books]
  *     summary: Mendapatkan satu buku berdasarkan ID
@@ -66,7 +66,7 @@ router.get('/:id', (req, res) => {
 
 /**
  * @swagger
- * /api/books:
+ * /:
  *   post:
  *     tags: [Books]
  *     summary: Menambahkan buku baru
@@ -106,7 +106,7 @@ router.post('/', authenticate, (req, res) => {
 
 /**
  * @swagger
- * /api/books/{id}:
+ * /{id}:
  *   put:
  *     tags: [Books]
  *     summary: Memperbarui data buku berdasarkan ID
@@ -146,7 +146,7 @@ router.put('/:id', (req, res) => {
 
 /**
  * @swagger
- * /api/books/{id}:
+ * /{id}:
  *   delete:
  *     tags: [Books]
  *     summary: Menghapus data buku berdasarkan ID
