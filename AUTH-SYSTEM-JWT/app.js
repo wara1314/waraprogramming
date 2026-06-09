@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 
 setupSwagger(app);
 
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, () => {
     console.log(` Server berjalan di: http://localhost:${PORT}`);
     console.log(` Swagger UI      di: http://localhost:${PORT}/api-docs`);
 });
