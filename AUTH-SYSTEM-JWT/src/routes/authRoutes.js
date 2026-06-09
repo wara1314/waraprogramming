@@ -8,7 +8,7 @@ console.log("Cek fungsi changePassword:", typeof authController.changePassword);
 
 /**
  * @swagger
- * /api/auth/register:
+ * /register:
  *   post:
  *     tags: [Auth]
  *     summary: Registrasi pengguna baru
@@ -39,7 +39,7 @@ router.post('/register', authController.register);
 
 /**
  * @swagger
- * /api/auth/login:
+ * /login:
  *   post:
  *     tags: [Auth]
  *     summary: Login dan dapatkan JWT token

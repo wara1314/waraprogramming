@@ -11,7 +11,7 @@ const options = {
         },
         servers: [
             {
-                url: `waraprogramming-production.up.railway.app`,
+                url: `https://waraprogramming-production.up.railway.app`,
             },
         ],
         components: {
@@ -23,22 +23,9 @@ const options = {
                 },
             },
         },
-        paths: {
-            "/api/auth/register": {
-                post: {
-                    summary: "Registrasi pengguna baru",
-                    responses: { "201": { description: "Registrasi sukses" } }
-                }
-            },
-            "/api/auth/login": {
-                post: {
-                    summary: "Login pengguna",
-                    responses: { "200": { description: "Login sukses" } }
-                }
-            }
-        }
     },
-    apis: [],
+                
+    apis: ["./src/routes/*.js"],
 };
     
 const swaggerSpec = swaggerJsdoc(options);
