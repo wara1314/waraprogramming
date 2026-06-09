@@ -25,7 +25,8 @@ const options = {
             },
         },
     },
-apis: [path.join(process.cwd(), "src/routes/*.js")],
+    
+apis: ["./src/routes/*.js"],
 
 };
     
