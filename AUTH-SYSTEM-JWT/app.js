@@ -20,9 +20,6 @@ app.get("/", (req, res) => {
     res.status(200).send("Server Backend Manajemen Buku Sukses Berjalan!");
 });
 
-app.listen(PORT, () => {
     app.listen(PORT, () => {
     console.log("Server backend manajemen buku berhasil dijalankan!");
-});
-
 });
