@@ -24,7 +24,7 @@ const options = {
             },
         },
     },
-    apis: [Path2D.join(__dirname, "../routes/*.js")],
+    apis: [Path.join(__dirname, "../routes/*.js")],
 };
     
 const swaggerSpec = swaggerJsdoc(options);
