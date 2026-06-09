@@ -21,6 +21,8 @@ app.get("/", (req, res) => {
 setupSwagger(app);
 
 app.listen(PORT, () => {
-    console.log(` Server berjalan di: http://localhost:${PORT}`);
-    console.log(` Swagger UI      di: http://localhost:${PORT}/api-docs`);
+    app.listen(PORT, () => {
+    console.log("Server backend manajemen buku berhasil dijalankan!");
+});
+
 });
