@@ -1,6 +1,9 @@
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
+const authRoutes = require("../routes/authRoutes");
+const bookRoutes = require("../routes/books.routes");
+
 const options = {
     definition: {
         openapi: "3.0.0",
@@ -25,7 +28,7 @@ const options = {
         },
     },
                 
-    apis: ["./src/routes/*.js"],
+    apis: [],
 
 };
     
