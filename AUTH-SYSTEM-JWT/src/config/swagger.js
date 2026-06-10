@@ -1,5 +1,4 @@
 const swaggerJsdoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
 
 const options = {
     definition: {
@@ -23,43 +22,50 @@ const options = {
                 },
             },
         },
-        paths: {
-            "/api/auth/register": {
-                post: {
-                    tags: ["Auth"],
-                    summary: "Registrasi pengguna baru",
-                    responses: { "201": { description: "Registrasi sukses" } }
-                }
-            },
-            "/api/auth/login": {
-                post: {
-                    tags: ["Auth"],
-                    summary: "Login pengguna",
-                    responses: { "200": { description: "Login sukses" } }
-                }
-            }
-        }
     },
-    apis: [], 
+    // Menunjuk langsung folder routes dari root utama secara aman
+    apis: ["./src/routes/*.js"], 
 };
     
 const swaggerSpec = swaggerJsdoc(options);
 
 const setupSwagger = (app) => {
-    // Jalur 1: Sediakan data JSON aslinya secara terpisah untuk bypass bug Express 5
-    app.get("/api-docs/json", (req, res) => {
-        res.json(swaggerSpec);
+    // 1. Jalur data JSON Swagger asli
+    app.get("/api-docs-json", (req, res) => {
+        res.setHeader("Content-Type", "application/json");
+        res.send(swaggerSpec);
     });
 
-    // Jalur 2: Daftarkan aset UI dan paksa baca ke Jalur JSON di atas
-    app.use("/api-docs", swaggerUi.serve);
-    app.get("/api-docs", swaggerUi.setup(null, {
-        swaggerOptions: {
-            url: "/api-docs/json"
-        }
-    }));
-
-    console.log("Swagger UI mandiri sukses didaftarkan!");
+    // 2. Trik HTML Bypass: Memaksa halaman Swagger UI muncul murni dari jaringan CDN pusat resmi
+    app.get("/api-docs", (req, res) => {
+        res.send(`
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <title>Buku API - Swagger UI</title>
+                <link rel="stylesheet" type="text/css" href="https://unpkg.com" />
+                <style>html { box-sizing: border-box; overflow-y: scroll; } *, *:before, *:after { box-sizing: inherit; } body { margin:0; background: #fafafa; }</style>
+            </head>
+            <body>
+                <div id="swagger-ui"></div>
+                <script src="https://unpkg.com" charset="UTF-8"> </script>
+                <script>
+                    window.onload = function() {
+                        const ui = SwaggerUIBundle({
+                            url: "/api-docs-json",
+                            dom_id: '#swagger-ui',
+                            deepLinking: true,
+                            presets: [SwaggerUIBundle.presets.apis]
+                        });
+                        window.ui = ui;
+                    };
+                </script>
+            </body>
+            </html>
+        `);
+    });
+    console.log("Bypass Swagger UI CDN berhasil didaftarkan!");
 };
 
 module.exports = { setupSwagger };
