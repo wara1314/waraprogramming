@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
-const { authenticate, authorize } = require('../middlewares/authMiddleware');
+const { authenticate, authorize } = require('../middleware/authMiddleware');
 
 console.log("Cek fungsi authenticate:", typeof authenticate);
 console.log("Cek fungsi changePassword:", typeof authController.changePassword);
