@@ -19,15 +19,15 @@ app.use(
   "/docs",
   apiReference({
     spec: {
-      url: "https://railway.app",
+      url: "https://waraprogramming-production.up.railway.app",
     },
   }),
 );
 
 app.get("/", (req, res) => {
-    res.status(200).send("Server Backend Manajemen Buku Sukses Berjalan! Buka link /docs untuk melihat dokumentasi API.");
+    res.redirect('/api-docs');
 });
 
 app.listen(PORT, () => {
-    console.log("Server backend berhasil dijalankan secara aman!");
+    console.log(`Server backend berhasil dijalankan pada port ${PORT}`);
 });
