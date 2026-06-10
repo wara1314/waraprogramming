@@ -1,4 +1,5 @@
 const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 const options = {
     definition: {
@@ -45,12 +46,20 @@ const options = {
 const swaggerSpec = swaggerJsdoc(options);
 
 const setupSwagger = (app) => {
-    // Kita buat rute khusus yang memuntahkan data JSON asli tanpa memanggil UI bawaan yang bug
-    app.get("/api-docs", (req, res) => {
-        res.setHeader("Content-Type", "application/json");
-        res.send(swaggerSpec);
+    // Jalur 1: Sediakan data JSON aslinya secara terpisah untuk bypass bug Express 5
+    app.get("/api-docs/json", (req, res) => {
+        res.json(swaggerSpec);
     });
-    console.log("Jalur data JSON Swagger berhasil diaktifkan!");
+
+    // Jalur 2: Daftarkan aset UI dan paksa baca ke Jalur JSON di atas
+    app.use("/api-docs", swaggerUi.serve);
+    app.get("/api-docs", swaggerUi.setup(null, {
+        swaggerOptions: {
+            url: "/api-docs/json"
+        }
+    }));
+
+    console.log("Swagger UI mandiri sukses didaftarkan!");
 };
 
 module.exports = { setupSwagger };
