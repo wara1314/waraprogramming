@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // HAPUS huruf 's' pada kata middlewares agar sesuai dengan folder aslimu 'middleware'
-const { authenticate } = require('../middleware/authMiddleware'); 
+const { authenticate } = require('../middlewares/authMiddleware'); 
 
 let books = [
     {id: 1, title: 'atomatic habits', author: 'james clear', price: 120000, stock: 50},

@@ -6,7 +6,7 @@ const { setupSwagger } = require("./src/config/swagger");
 
 // Menghubungkan berkas rute kontrol autentikasi dan buku
 const authRoutes = require("./src/routes/authRoutes");
-const bookRoutes = require("./src/routes/books.routes");
+const bookroutes = require("./src/routes/books.routes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,7 +18,7 @@ setupSwagger(app);
 
 // 2. Mendaftarkan rute utama Express
 app.use("/api/auth", authRoutes);
-app.use("/api/books", bookRoutes);
+app.use("/api/books", book.routes);
 
 // 3. Jalur bypass pengalihan otomatis agar server langsung membuka Swagger
 app.get("/", (req, res) => {

@@ -1,5 +1,5 @@
 const authService = require('../services/authService');
-const { registerSchema, loginSchemaFull, changePasswordSchema } = require('../validation/authValidation');
+const { registerSchema, loginSchemaFull, changePasswordSchema } = require('../validations/authValidation');
 const authController = {    
     async register(req, res) {
 
