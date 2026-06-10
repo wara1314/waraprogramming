@@ -1,9 +1,6 @@
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
-const authRoutes = require("../routes/authRoutes");
-const bookRoutes = require("../routes/books.routes");
-
 const options = {
     definition: {
         openapi: "3.0.0",
@@ -14,7 +11,7 @@ const options = {
         },
         servers: [
             {
-                url: `https://waraprogramming-production.up.railway.app`,
+                url: "https://waraprogramming-production.up.railway.app",
             },
         ],
         components: {
@@ -26,16 +23,31 @@ const options = {
                 },
             },
         },
+        // KUNCI KEMENANGAN: Kita tulis rute manual di sini agar Swagger tidak kosong dan langsung aktif!
+        paths: {
+            "/api/auth/register": {
+                post: {
+                    tags: ["Auth"],
+                    summary: "Registrasi pengguna baru",
+                    responses: { "201": { description: "Registrasi sukses" } }
+                }
+            },
+            "/api/auth/login": {
+                post: {
+                    tags: ["Auth"],
+                    summary: "Login pengguna",
+                    responses: { "200": { description: "Login sukses" } }
+                }
+            }
+        }
     },
-                
-    apis: [],
-
+    apis: [], // Biarkan kosong agar server cloud tidak pusing mencari folder luar
 };
     
 const swaggerSpec = swaggerJsdoc(options);
 const setupSwagger = (app) => {
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-    console.log(` Swagger UI: https://railway.app/api-docs`);
+    console.log("Swagger UI berhasil dijalankan!");
 };
 
 module.exports = { setupSwagger };
