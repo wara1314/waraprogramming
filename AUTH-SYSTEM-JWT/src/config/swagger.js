@@ -1,5 +1,4 @@
 const swaggerJsdoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
 
 const options = {
     definition: {
@@ -23,7 +22,6 @@ const options = {
                 },
             },
         },
-        // KUNCI KEMENANGAN: Kita tulis rute manual di sini agar Swagger tidak kosong dan langsung aktif!
         paths: {
             "/api/auth/register": {
                 post: {
@@ -41,13 +39,18 @@ const options = {
             }
         }
     },
-    apis: [], // Biarkan kosong agar server cloud tidak pusing mencari folder luar
+    apis: [], 
 };
     
 const swaggerSpec = swaggerJsdoc(options);
+
 const setupSwagger = (app) => {
-    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-    console.log("Swagger UI berhasil dijalankan!");
+    // Kita buat rute khusus yang memuntahkan data JSON asli tanpa memanggil UI bawaan yang bug
+    app.get("/api-docs", (req, res) => {
+        res.setHeader("Content-Type", "application/json");
+        res.send(swaggerSpec);
+    });
+    console.log("Jalur data JSON Swagger berhasil diaktifkan!");
 };
 
 module.exports = { setupSwagger };
