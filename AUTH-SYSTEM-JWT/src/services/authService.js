@@ -31,6 +31,11 @@ const authService = {
       throw new Error('INVALID_CREDENTIALS');
     }
 
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      throw new Error('INVALID_CREDENTIALS');
+    }
+    
     const accesToken = jwt.sign(
         { userId: user.id, role: user.role }, 
         process.env.JWT_SECRET, 
