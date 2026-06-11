@@ -43,7 +43,7 @@ const authService = {
         { expiresIn: '7d' }
     );
 
-    await userRepository.update(user.id, { refreshToken });
+    //await userRepository.update(user.id, { refreshToken });
 
     return { accesToken, refreshToken };
   },
