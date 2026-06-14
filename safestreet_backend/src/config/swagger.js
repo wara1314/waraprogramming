@@ -2,7 +2,7 @@ const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
 const options = {
-    definition: {
+    swaggerDefinition: {
         openapi: "3.0.0",
         info: {
             title: "SafeStreet Backend",
