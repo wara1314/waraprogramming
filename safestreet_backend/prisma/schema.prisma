@@ -1,0 +1,50 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String  
+  email     String   @unique
+  password  String   
+  role      Role     @default(WARGA)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  patrols   PatrolAssignment[]
+}
+
+model DangerZone {
+  id          Int      @id @default(autoincrement())
+  streetName  String 
+  dangerType  String   // Contoh: Begal, Premanisme, Jalan Gelap
+  description String   @db.Text
+  dangerLevel String   // Contoh: RENDAH, SEDANG, TINGGI
+  status      String   @default("RAWAN") // RAWAN, DI-PATROLI, AMAN
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  assignments  PatrolAssignment[]
+}
+
+model PatrolAssignment {
+  id         Int        @id @default(autoincrement())
+  userId     Int
+  zoneId     Int        
+  assignedAt DateTime   @default(now())
+  notes      String?    @db.Text  // Catatan laporan dari petugas setelah patroli
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dangerZone DangerZone @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+  WARGA
+  PETUGAS
+}
