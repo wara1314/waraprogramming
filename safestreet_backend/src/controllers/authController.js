@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const prisma = require("../config/prisma");
-const { aturanDaftarWarga } = require("../validations/authValidation");
+const { aturanDaftarWarga, aturanMasukAkun } = require("../validations/authValidation");
 
 const daftarAkunBaru = async (req, res, next) => {
     try {
