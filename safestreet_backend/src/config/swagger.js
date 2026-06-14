@@ -12,9 +12,19 @@ const options = {
         servers: [
             {
                 url: "https://safestreetbackend-production.up.railway.app",
-                description: "Server Lokal pengujian"
+                description: "Server Utama Live di Internet"
             }
         ],
+        components: {
+            securitySchemes: {
+                BearerAuth: {
+                    type: "http",
+                    scheme: "bearer",
+                    bearerFormat: "JWT",
+                    description: "Masukkan token JWT kamu dengan format: Bearer <token>"
+                }
+            }
+        }
     },
     apis: ["./src/routes/*.js"],
 };
