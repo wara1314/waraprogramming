@@ -24,7 +24,12 @@ const options = {
                     description: "Masukkan token JWT kamu dengan format: Bearer <token>"
                 }
             }
-        }
+        },
+        security: [
+            {
+                BearerAuth: []
+            }
+        ]
     },
     apis: ["./src/routes/*.js"],
 };
