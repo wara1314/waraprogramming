@@ -22,7 +22,7 @@ const daftarAkunBaru = async (req, res, next) => {
     
         const passwordAcak = await bcrypt.hash(password, 10);
         const userBaru = await prisma.user.create({
-            data: { name, email, paswword: passwordAcak, role: "WARGA" }
+            data: { name, email, password: passwordAcak, role: "WARGA" }
         });
         
         return res.status(201).json({
