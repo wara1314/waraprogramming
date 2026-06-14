@@ -1,4 +1,7 @@
 const express = require("express");
+
+const cors = require("cors"); 
+
 const logAktivitas = require("./src/middlewares/logmiddlewares");
 const zoneroutes = require("./src/routes/zoneroutes");
 const authRoutes = require("./src/routes/authRoutes");
@@ -7,6 +10,8 @@ const { setupSwagger } = require("./src/config/swagger");
 
 const app = express();
 const PORT = 3000;
+
+app.use(cors({ origin: "*" })); 
 
 app.use(express.json());
 app.use(logAktivitas);
