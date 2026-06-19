@@ -29,10 +29,6 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: `http://localhost:${PORT}`, // Otomatis mengarah ke komputer lokal kamu untuk presentasi
-                description: "Server Lokal (Presentasi)"
-            },
-            {
                 url: "https://safestreetbackend-production.up.railway.app",
                 description: "Server Utama Live di Internet"
             }
@@ -53,13 +49,11 @@ const swaggerOptions = {
             }
         ]
     },
-    // PERBAIKAN UTAMA: Menggunakan path.join agar pembacaan folder rute stabil dan tidak macet
     apis: [path.join(__dirname, "./src/routes/*.js")],
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
-// 2. Setup Swagger UI dipanggil PALING BAWAH setelah Express siap
 setupSwagger(app, swaggerSpec);
 
 app.get("/", (req, res) => {
