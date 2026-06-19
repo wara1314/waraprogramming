@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors"); 
-const swaggerJsdoc = require("swagger-jsdoc"); // Kita panggil mesin pembaca skrip jsdoc
+const swaggerJsdoc = require("swagger-jsdoc");
 
-const logAktivitas = require("./src/middlewares/logMiddlewares");
+const logAktivitas = require("./src/middlewares/logmiddlewares"); // Pastikan s kecil/besar sesuai folder
 const zoneroutes = require("./src/routes/zoneroutes");
 const authRoutes = require("./src/routes/authRoutes");
 const { setupSwagger } = require("./src/config/swagger");
@@ -13,6 +13,9 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({ origin: "*" })); 
 app.use(express.json());
 app.use(logAktivitas);
+
+app.use("/api/auth", authRoutes);
+app.use("/api/zones", zoneroutes);
 
 const swaggerOptions = {
     definition: {
@@ -50,9 +53,6 @@ const swaggerOptions = {
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
 setupSwagger(app, swaggerSpec);
-
-app.use("/api/auth", authRoutes);
-app.use("/api/zones", zoneroutes);
 
 app.get("/", (req, res) => {
     res.redirect("/api-docs");
