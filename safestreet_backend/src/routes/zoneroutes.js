@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const prisma = require("../config/prisma");
 
-// 1. Panggil pengaman token JWT dan fungsi batasiHakAkses dari berkas middleware kamu
 const { cekKunciToken, batasiHakAkses } = require("../middlewares/authMiddlewares");
 const { aturanLaporJalan } = require("../validations/zoneValidation");
 
@@ -65,7 +64,7 @@ router.post("/", cekKunciToken, async (req, res, next) => {
     try {
         const saringData = aturanLaporJalan.safeParse(req.body);
         if (!saringData.success) {
-            return res.status(400).json({ success: false, message: saringData.error.errors.message });
+            return res.status(400).json({ success: false, message: saringData.error.errors[0].message });
         }
         const { streetName, dangerType, description, dangerLevel } = saringData.data;
         const laporanBaru = await prisma.dangerZone.create({
@@ -108,7 +107,6 @@ router.post("/", cekKunciToken, async (req, res, next) => {
  *       403:
  *         description: Akses ditolak karena kamu bukan Petugas
  */
-// RUTE BARU: Mengunci akses agar murni hanya boleh di-update oleh user ber-role PETUGAS!
 router.patch("/:id", cekKunciToken, batasiHakAkses("PETUGAS"), async (req, res, next) => {
     try {
         const { id } = req.params;

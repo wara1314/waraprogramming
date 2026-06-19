@@ -9,7 +9,8 @@ const daftarAkunBaru = async (req, res, next) => {
         if (!saringData.success) {
             return res.status(400).json({
                 success: false,
-                message: saringData.error.errors[0].message });
+                message: saringData.error.errors[0].message 
+            });
         }
     
         const { name, email, password } = saringData.data;
@@ -17,7 +18,8 @@ const daftarAkunBaru = async (req, res, next) => {
         if (emailSudahAda) {
             return res.status(400).json({
                 success: false,
-                message: "Aduh, alamt email ini sudah terdaftar di sistem!" });
+                message: "Aduh, alamt email ini sudah terdaftar di sistem!" 
+            });
         }
     
         const passwordAcak = await bcrypt.hash(password, 10);
@@ -54,7 +56,7 @@ const masukAkun = async (req, res, next) => {
             { expiresIn: "1h" }
         );
         return res.status(200).json({
-            succes: true,
+            success: true,
             message: "yeayy! kamu berhasil masuk ke sistem SafeStreet.",
             accessToken
         });
