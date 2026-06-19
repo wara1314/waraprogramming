@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+
 const cekKunciToken = (req, res, next) => {
     const KategoriHeader = req.headers["authorization"];
     const token = KategoriHeader && KategoriHeader.split(" ")[1];
@@ -23,7 +24,14 @@ const cekKunciToken = (req, res, next) => {
 
 const batasiHakAkses = (...peranYangDiizinkan) => {
     return (req, res, next) => {
-        if (!peranYangDiizinkan.includes(req,user.role)) {
+        if (!req.user) {
+            return res.status(401).json({
+                success: false,
+                message: "Autentikasi diperlukan! Silahkan login terlebih dahulu."
+            });
+        }
+        
+        if (!peranYangDiizinkan.includes(req.user.role)) {
             return res.status(403).json({
                 success: false,
                 message: `Maaf, fitur khusus ini dilarang untuk role ${req.user.role}!`

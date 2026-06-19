@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
+const { cekKunciToken, batasiHakAkses } = require("../middlewares/authMiddlewares");
 
 /**
  * @swagger
@@ -21,7 +22,7 @@ const authController = require("../controllers/authController");
  *                 example: Hawa
  *               email:
  *                 type: string
- *                 example: hawa@example.com
+ *                 example: hai@example.com
  *               password:
  *                 type: string
  *                 example: rahasia123
@@ -49,7 +50,7 @@ router.post("/register", authController.daftarAkunBaru);
  *             properties:
  *               email:
  *                 type: string
- *                 example: hawa@example.com
+ *                 example: hai@example.com
  *               password:
  *                 type: string
  *                 example: rahasia123
@@ -60,5 +61,24 @@ router.post("/register", authController.daftarAkunBaru);
  *         description: Email atau password salah
  */
 router.post("/login", authController.masukAkun);
+
+
+/**
+ * @swagger
+ * /api/auth/profile:
+ *   get:
+ *     tags: [Auth]
+ *     summary: Melihat data profil pengguna yang sedang login
+ *     security:
+ *       - BearerAuth: []  
+ *     responses:
+ *       200:
+ *         description: Berhasil mengambil data profil
+ *       401:
+ *         description: Token tidak ditemukan atau tidak sah
+ */
+router.get("/profile", cekKunciToken, (req, res) => {
+    res.json({ success: true, message: "Selamat Datang!", user: req.user });
+});
 
 module.exports = router;
