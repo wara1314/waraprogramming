@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors"); 
 const swaggerJsdoc = require("swagger-jsdoc"); // Kita panggil mesin pembaca skrip jsdoc
 
-const logAktivitas = require("./src/middlewares/logMiddleware");
+const logAktivitas = require("./src/middlewares/logMiddlewares");
 const zoneroutes = require("./src/routes/zoneroutes");
 const authRoutes = require("./src/routes/authRoutes");
 const { setupSwagger } = require("./src/config/swagger");
@@ -49,7 +49,6 @@ const swaggerOptions = {
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
-// Nyalakan Swagger UI membawa spesifikasi gembok di atas
 setupSwagger(app, swaggerSpec);
 
 app.use("/api/auth", authRoutes);
