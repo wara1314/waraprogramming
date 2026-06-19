@@ -33,12 +33,7 @@ const swaggerOptions = {
             version: "1.0.0",
             description: "Dokumentasi API Aplikasi Keamanan Jalan Raya dan Fasilitas Umum",
         },
-        servers: [
-            {
-                url: "https://safestreetbackend-production.up.railway.app",
-                description: "Server Utama Live di Internet"
-            }
-        ],
+    
         components: {
             securitySchemes: {
                 BearerAuth: {
