@@ -1,8 +1,9 @@
 const express = require("express");
 const cors = require("cors"); 
 const swaggerJsdoc = require("swagger-jsdoc");
+const path = require("path"); // Ditambahkan untuk mengunci jalur folder secara absolut
 
-const logAktivitas = require("./src/middlewares/logmiddlewares"); // Pastikan s kecil/besar sesuai folder
+const logAktivitas = require("./src/middlewares/logmiddlewares");
 const zoneroutes = require("./src/routes/zoneroutes");
 const authRoutes = require("./src/routes/authRoutes");
 const { setupSwagger } = require("./src/config/swagger");
@@ -14,6 +15,7 @@ app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(logAktivitas);
 
+// 1. Jalankan rute utama Express terlebih dahulu
 app.use("/api/auth", authRoutes);
 app.use("/api/zones", zoneroutes);
 
@@ -26,6 +28,10 @@ const swaggerOptions = {
             description: "Dokumentasi API Aplikasi Keamanan Jalan Raya dan Fasilitas Umum",
         },
         servers: [
+            {
+                url: `http://localhost:${PORT}`, // Otomatis mengarah ke komputer lokal kamu untuk presentasi
+                description: "Server Lokal (Presentasi)"
+            },
             {
                 url: "https://safestreetbackend-production.up.railway.app",
                 description: "Server Utama Live di Internet"
@@ -47,11 +53,13 @@ const swaggerOptions = {
             }
         ]
     },
-    apis: ["./src/routes/*.js"],
+    // PERBAIKAN UTAMA: Menggunakan path.join agar pembacaan folder rute stabil dan tidak macet
+    apis: [path.join(__dirname, "./src/routes/*.js")],
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
+// 2. Setup Swagger UI dipanggil PALING BAWAH setelah Express siap
 setupSwagger(app, swaggerSpec);
 
 app.get("/", (req, res) => {
@@ -65,4 +73,5 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, "0.0.0.0", () => {
     console.log("server aman berjalan di port", PORT);
+    console.log(`Dokumentasi lokal siap di: http://localhost:${PORT}/api-docs`);
 });
