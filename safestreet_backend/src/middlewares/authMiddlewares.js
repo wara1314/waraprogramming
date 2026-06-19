@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const cekKunciToken = (req, res, next) => {
     const KategoriHeader = req.headers["authorization"];
+   
     const token = KategoriHeader && KategoriHeader.split(" ")[1];
 
     if (!token) {
@@ -27,10 +28,10 @@ const batasiHakAkses = (...peranYangDiizinkan) => {
         if (!req.user) {
             return res.status(401).json({
                 success: false,
-                message: "Autentikasi diperlukan! Silahkan login terlebih dahulu."
+                message: "Autentikasi diperlukan! Sila login terlebih dahulu."
             });
         }
-        
+
         if (!peranYangDiizinkan.includes(req.user.role)) {
             return res.status(403).json({
                 success: false,
