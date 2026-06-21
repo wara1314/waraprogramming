@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const prisma = require("../config/prisma");
 
-const { cekKunciToken, batasiHakAkses } = require("../middlewares/authMiddlewares");
+const { cekKunciToken, batasiHakAkses } = require("../middlewares/authmiddlewares");
 const { aturanLaporJalan } = require("../validations/zoneValidation");
 
 /**

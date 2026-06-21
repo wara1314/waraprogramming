@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
-const { cekKunciToken, batasiHakAkses } = require("../middlewares/authMiddlewares");
+const { cekKunciToken, batasiHakAkses } = require("../middlewares/authmiddlewares");
 
 /**
  * @swagger
