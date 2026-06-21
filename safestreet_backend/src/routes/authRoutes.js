@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
-const { cekKunciToken, batasiHakAkses } = require("../middlewares/authmiddlewares");
+const { cekKunciToken } = require("../middlewares/authmiddlewares");
 
 /**
  * @swagger
@@ -61,7 +61,6 @@ router.post("/register", authController.daftarAkunBaru);
  *         description: Email atau password salah
  */
 router.post("/login", authController.masukAkun);
-
 
 /**
  * @swagger
