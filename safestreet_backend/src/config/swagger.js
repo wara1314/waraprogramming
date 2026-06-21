@@ -15,7 +15,21 @@ const options = {
                 description: "Server Utama Live di Internet"
             }
         ],
-        // DAFtarkan SELEURUH RUTE API SECARA TEGAS DI SINI AGAR LANGSUNG MUNCUL DI BROWSER!
+        components: {
+            securitySchemes: {
+                BearerAuth: {
+                    type: "http",
+                    scheme: "bearer",
+                    bearerFormat: "JWT",
+                    description: "Masukkan token JWT kamu langsung (tanpa kata Bearer)."
+                }
+            }
+        },
+        security: [
+            {
+                BearerAuth: []
+            }
+        ],
         paths: {
             "/api/auth/register": {
                 "post": {
@@ -72,6 +86,9 @@ const options = {
                 "get": {
                     "tags": ["Auth"],
                     "summary": "Melihat data profil pengguna yang sedang login",
+                    "security": [
+                        { "BearerAuth": [] }
+                    ],
                     "responses": {
                         "200": { "description": "Berhasil mengambil data profil" },
                         "401": { "description": "Token tidak sah" }
@@ -89,6 +106,9 @@ const options = {
                 "post": {
                     "tags": ["Zones"],
                     "summary": "Warga melaporkan lokasi jalan rawan baru",
+                    "security": [
+                        { "BearerAuth": [] }
+                    ],
                     "requestBody": {
                         "required": true,
                         "content": {
@@ -125,6 +145,9 @@ const options = {
                 "patch": {
                     "tags": ["Zones"],
                     "summary": "Petugas mengubah status kondisi jalan rawan (Khusus Petugas)",
+                    "security": [
+                        { "BearerAuth": [] }
+                    ],
                     "parameters": [
                         { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
                     ],
@@ -149,6 +172,9 @@ const options = {
                 "delete": {
                     "tags": ["Zones"],
                     "summary": "Petugas menghapus data Laporan jalan rawan (Khusus Petugas)",
+                    "security": [
+                        { "BearerAuth": [] }
+                    ],
                     "parameters": [
                         { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
                     ],
@@ -159,7 +185,7 @@ const options = {
             }
         }
     },
-    apis: [], // Kita kosongkan karena jalurnya sudah dikunci lewat objek paths di atas!
+    apis: [], 
 };
 
 const swaggerSpec = swaggerJsdoc(options);
