@@ -29,30 +29,31 @@ router.get("/", async (req, res, next) => {
 /**
  * @swagger
  * /api/zones/{id}:
- * get:
- *   tags: [Zones]
- *   summary: Mendapatkan detail informasi dari satu Lokasi jalan rawan (ENDPOINT BARU 4)
- *   parameters:
- *      - in: path
- *        name: id
- *        required: true
- *        schema:
- *          type: integer
- *        description: ID nomor jalan rawan yang dicari
- *   responses:
- *      200:
- *        description: Detail data jalan berhasil ditemukan
- *      404:
- *        description: Data jalan rawan tidak ditemukan
+ *   get:
+ *     tags: [Zones]
+ *     summary: Mendapatkan detail informasi dari satu lokasi jalan rawan (ENDPOINT BARU 4)
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID nomor jalan rawan yang dicari
+ *     responses:
+ *       200:
+ *         description: Detail data jalan berhasil ditemukan
+ *       404:
+ *         description: Data jalan rawan tidak ditemukan
  */
-router.get("/:id", async (req, res, next) =>{
+router.get("/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
         const detailJalan = await prisma.dangerZone.findUnique({
             where: { id: parseInt(id) }
         });
 
-        if (!detailjalan) {
+        // PERBAIKAN 1: Pastikan huruf 'J' wajib kapital sesuai variabel di atasnya!
+        if (!detailJalan) { 
             return res.status(404).json({
                 success: false,
                 message: "Waduh, data jalan rawan tidak ditemukan!"
@@ -68,7 +69,7 @@ router.get("/:id", async (req, res, next) =>{
 
 /**
  * @swagger
-* /api/zones:
+ * /api/zones:
  *   post:
  *     tags: [Zones]
  *     summary: Warga melaporkan lokasi jalan rawan baru
@@ -202,19 +203,21 @@ router.delete("/:id", cekKunciToken, batasiHakAkses("PETUGAS"), async (req, res,
             where: { id: parseInt(id) }
         });
 
-        if (!cekdata) {
+        // PERBAIKAN 2: Pastikan huruf 'D' wajib kapital sesuai variabel di atasnya!
+        if (!cekData) { 
             return res.status(404).json({
                 success: false,
                 message: "Data laporan jalan tidak ditemukan untuk dihapus!"
             });
         }
+        
         await prisma.dangerZone.delete({
             where: { id: parseInt(id) }
         });
 
         res.status(200).json({
             success: true,
-            mesagge: "Sukses petugas! Data laporan jalan rawan berhasil dihapus secara permanen."
+            message: "Sukses petugas! Data laporan jalan rawan berhasil dihapus secara permanen." // Mengoreksi typo mesagge -> message
         });
     } catch (error) { next(error); }
 });
