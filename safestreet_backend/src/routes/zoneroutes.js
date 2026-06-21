@@ -52,7 +52,6 @@ router.get("/:id", async (req, res, next) => {
             where: { id: parseInt(id) }
         });
 
-        // PERBAIKAN 1: Pastikan huruf 'J' wajib kapital sesuai variabel di atasnya!
         if (!detailJalan) { 
             return res.status(404).json({
                 success: false,
@@ -203,7 +202,6 @@ router.delete("/:id", cekKunciToken, batasiHakAkses("PETUGAS"), async (req, res,
             where: { id: parseInt(id) }
         });
 
-        // PERBAIKAN 2: Pastikan huruf 'D' wajib kapital sesuai variabel di atasnya!
         if (!cekData) { 
             return res.status(404).json({
                 success: false,
@@ -217,7 +215,7 @@ router.delete("/:id", cekKunciToken, batasiHakAkses("PETUGAS"), async (req, res,
 
         res.status(200).json({
             success: true,
-            message: "Sukses petugas! Data laporan jalan rawan berhasil dihapus secara permanen." // Mengoreksi typo mesagge -> message
+            message: "Sukses petugas! Data laporan jalan rawan berhasil dihapus secara permanen."
         });
     } catch (error) { next(error); }
 });
