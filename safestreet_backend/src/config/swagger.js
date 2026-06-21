@@ -14,9 +14,12 @@ const options = {
                 url: "https://safestreetbackend-production.up.railway.app",
                 description: "Server Utama Live di Internet"
             }
-        ]
+        ],
     },
-    apis: [],
+    apis: [
+        "./src/routes/authRoutes.js",
+        "./src/routes/zoneroutes.js"
+    ],
 };
 
 const swaggerSpec = swaggerJsdoc(options);
