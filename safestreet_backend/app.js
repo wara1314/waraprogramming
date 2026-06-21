@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors"); 
 
-const logAktivitas = require("./src/middlewares/logMiddleware");
+const logAktivitas = require("./src/middlewares/logmiddlewares");
 const zoneroutes = require("./src/routes/zoneroutes");
 const authRoutes = require("./src/routes/authRoutes");
 const { setupSwagger } = require("./src/config/swagger");
