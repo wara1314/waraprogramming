@@ -9,4 +9,4 @@ const aturanLaporJalan = z.object({
        })
     });
 
-    module.expors = { aturanLaporJalan };
+    module.exports = { aturanLaporJalan };
